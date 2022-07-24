@@ -1,4 +1,6 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   font-family: Gotham Rounded;
 }
@@ -18,7 +20,8 @@ body {
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background-color: hsl(var(--hue), 100%, 20%);
+  background-color: hsl(var(--hue), 50%, 50%);
+  /*background-color: black;*/
 }
 
 body.correct {
@@ -68,7 +71,8 @@ body.wrong {
   --hue: var(--hue-wrong);
 }
 
-.start-btn, .next-btn {
+.start-btn,
+.next-btn {
   font-size: 1.5rem;
   font-weight: bold;
   padding: 10px 20px;
@@ -82,4 +86,19 @@ body.wrong {
 
 .hide {
   display: none;
+}
+
+/* grid layout for score system */
+
+.score-grid {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.record {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 10px 20px;
 }

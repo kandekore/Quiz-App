@@ -3,6 +3,11 @@ const nextButton = document.getElementById("next-btn");
 const questionContainerElement = document.getElementById("question-container");
 const questionElement = document.getElementById("question");
 const answerButtonsElement = document.getElementById("answer-buttons");
+//const keepScore = document.querySelector("#userscore");
+var timerEl = document.getElementById("countdown");
+const scoreTracker = document.getElementById("score-tracker");
+const scoreUpElement = document.getElementById("score-up");
+const recordButton = document.getElementById("recordscore");
 
 let shuffledQuestions, currentQuestionIndex;
 
@@ -11,13 +16,39 @@ nextButton.addEventListener("click", () => {
   currentQuestionIndex++;
   setNextQuestion();
 });
+function record(e) {
+  recordButton.classList.remove("hide");
+}
+function countdown() {
+  var timeLeft = 10;
 
+  // TODO: Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
+  var timeInterval = setInterval(function () {
+    timeLeft--;
+    timerEl.textContent = timeLeft;
+    if (timeLeft === 0) {
+      clearInterval(timeInterval);
+      alert("Time is up!");
+      resetState();
+      record();
+    }
+  }, 1000);
+}
+/*var userScore = 0;
+var point = 1;
+function score() {
+  score = userScore + point;
+
+  return score;
+}*/
+//keepScore.textContent == userScore;
 function startGame() {
   startButton.classList.add("hide");
   shuffledQuestions = questions.sort(() => Math.random() - 0.5);
   currentQuestionIndex = 0;
   questionContainerElement.classList.remove("hide");
   setNextQuestion();
+  countdown();
 }
 
 function setNextQuestion() {
@@ -51,6 +82,8 @@ function selectAnswer(e) {
   const selectedButton = e.target;
   const correct = selectedButton.dataset.correct;
   setStatusClass(document.body, correct);
+  processResults(correct);
+  setStatusClass(document.body, correct);
   Array.from(answerButtonsElement.children).forEach((button) => {
     setStatusClass(button, button.dataset.correct);
   });
@@ -62,12 +95,30 @@ function selectAnswer(e) {
   }
 }
 
+//function subtractTime(event) {
+// timerEl.textContent = timeLeft.subtractTime - 10000;
+//}
+
+//function addDay() {
+//countDownDate.setDate(countDownDate.getDate()+1)
+// update();
+//}
+
 function setStatusClass(element, correct) {
   clearStatusClass(element);
   if (correct) {
     element.classList.add("correct");
+    /*userScore += 1;
+
+    console.log(userScore);
+    console.log(score);*/
   } else {
     element.classList.add("wrong");
+    /* function removeTime() {
+      timeLeft -= 5;
+      document.getElementById("countdown").innerHTML = "00:" + timeLeft;
+      removeTime();
+    }*/
   }
 }
 
@@ -88,9 +139,9 @@ const questions = [
     question: "Who has made the most all-time appearances for Aston Villa?",
     answers: [
       { text: "Charlie Aitken", correct: true },
-      { text: "Traversy Media", correct: true },
-      { text: "Dev Ed", correct: true },
-      { text: "Fun Fun Function", correct: true },
+      { text: "Traversy Media", correct: false },
+      { text: "Dev Ed", correct: false },
+      { text: "Fun Fun Function", correct: false },
     ],
   },
   {
@@ -111,3 +162,16 @@ const questions = [
     ],
   },
 ];
+
+function processResults(isCorrect) {
+  if (!isCorrect) {
+    return;
+  }
+
+  const scoreUp = parseInt(scoreUpElement.textContent, 10) || 0;
+
+  scoreUpElement.textContent = scoreUp + 1;
+}
+
+console.log["scoreTracker"];
+console.log["scoreUpElement"];
