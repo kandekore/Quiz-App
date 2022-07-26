@@ -4,7 +4,7 @@ const mostRecentScore = localStorage.getItem("mostRecentScore");
 finalScore.innerText = mostRecentScore;
 const finalScore = document.getElementById("finalScore");
 
-username.addEventListener("keyup", () => {
+username.addEventListener("input", () => {
   saveScoreBtn.disabled = !username.value;
 });
 
