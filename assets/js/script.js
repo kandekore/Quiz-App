@@ -171,6 +171,7 @@ function processResults(isCorrect) {
   const scoreUp = parseInt(scoreUpElement.textContent, 10) || 0;
 
   scoreUpElement.textContent = scoreUp + 1;
+  localStorage.setItem("mostRecentScore", scoreUp + 1);
 }
 
 console.log["scoreTracker"];
