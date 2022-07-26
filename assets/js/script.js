@@ -1,5 +1,6 @@
 const startButton = document.getElementById("start-btn");
 const nextButton = document.getElementById("next-btn");
+const timer = document.getElementById("countdown")
 const questionContainerElement = document.getElementById("question-container");
 const questionElement = document.getElementById("question");
 const answerButtonsElement = document.getElementById("answer-buttons");
@@ -8,9 +9,9 @@ var timerEl = document.getElementById("countdown");
 const scoreTracker = document.getElementById("score-tracker");
 const scoreUpElement = document.getElementById("score-up");
 const recordButton = document.getElementById("recordscore");
-
+var timeLeft = 100;
 let shuffledQuestions, currentQuestionIndex;
-
+let scoreUp = 0;
 startButton.addEventListener("click", startGame);
 nextButton.addEventListener("click", () => {
   currentQuestionIndex++;
@@ -20,13 +21,13 @@ function record(e) {
   recordButton.classList.remove("hide");
 }
 function countdown() {
-  var timeLeft = 10;
+ 
 
   // TODO: Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   var timeInterval = setInterval(function () {
     timeLeft--;
     timerEl.textContent = timeLeft;
-    if (timeLeft === 0) {
+    if (timeLeft <= 0 ) {
       clearInterval(timeInterval);
       alert("Time is up!");
       resetState();
@@ -81,9 +82,10 @@ function resetState() {
 function selectAnswer(e) {
   const selectedButton = e.target;
   const correct = selectedButton.dataset.correct;
+  console.log("Iam in select answer")
   setStatusClass(document.body, correct);
   processResults(correct);
-  setStatusClass(document.body, correct);
+  //setStatusClass(document.body, correct);
   Array.from(answerButtonsElement.children).forEach((button) => {
     setStatusClass(button, button.dataset.correct);
   });
@@ -106,20 +108,7 @@ function selectAnswer(e) {
 
 function setStatusClass(element, correct) {
   clearStatusClass(element);
-  if (correct) {
-    element.classList.add("correct");
-    /*userScore += 1;
-
-    console.log(userScore);
-    console.log(score);*/
-  } else {
-    element.classList.add("wrong");
-    /* function removeTime() {
-      timeLeft -= 5;
-      document.getElementById("countdown").innerHTML = "00:" + timeLeft;
-      removeTime();
-    }*/
-  }
+  
 }
 
 function clearStatusClass(element) {
@@ -163,15 +152,36 @@ const questions = [
   },
 ];
 
-function processResults(isCorrect) {
-  if (!isCorrect) {
-    return;
+function processResults(correct) {
+  //if (!isCorrect) {
+  //  return;
+  //}
+  if (correct) {
+    document.body.classList.add("correct");
+    /*userScore += 1;
+
+    console.log(userScore);
+    console.log(score);*/
+  } else {
+    document.body.classList.add("wrong");
+    
+      timeLeft -= 25;
+      if (timeLeft <= 0) {
+        timeLeft = 0;
+        timer.classList.add("hide");
+      }
+    timerEl.textContent = timeLeft;
+    
+    
   }
+  scoreUp = parseInt(scoreUpElement.textContent, 10) || 0;
 
-  const scoreUp = parseInt(scoreUpElement.textContent, 10) || 0;
-
-  scoreUpElement.textContent = scoreUp + 1;
-  localStorage.setItem("mostRecentScore", scoreUp + 1);
+  if (correct) {
+    scoreUp += 1;
+  }
+  scoreUpElement.textContent = scoreUp ;
+  
+  localStorage.setItem("mostRecentScore", scoreUp );
 }
 
 console.log["scoreTracker"];
