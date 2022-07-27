@@ -9,9 +9,30 @@ var timerEl = document.getElementById("countdown");
 const scoreTracker = document.getElementById("score-tracker");
 const scoreUpElement = document.getElementById("score-up");
 const recordButton = document.getElementById("recordscore");
-var timeLeft = 100;
+var timeLeft = 15;
 let shuffledQuestions, currentQuestionIndex;
 let scoreUp = 0;
+
+//const mostRecentScore = localStorage.getItem("mostRecentScore");
+
+const latestScore = localStorage.getItem("mostRecentScore");
+const scoreLog = document.getElementById("latestscore");
+
+scoreLog.innerText = latestScore;
+
+const latestUser = localStorage.getItem("userName");
+const userLog = document.getElementById("latestuser");
+
+userLog.innerText = latestUser;
+
+function hideScore (){
+  if (latestScore === 0 && latestUser === 0){
+    userLog.classList.add("hide");
+
+  }
+}
+
+console.log(latestScore);
 startButton.addEventListener("click", startGame);
 nextButton.addEventListener("click", () => {
   currentQuestionIndex++;
@@ -33,8 +54,14 @@ function countdown() {
       resetState();
       record();
     }
+ 
   }, 1000);
 }
+
+
+
+
+
 /*var userScore = 0;
 var point = 1;
 function score() {
@@ -174,6 +201,19 @@ function processResults(correct) {
     
     
   }
+
+  function timer () {
+    
+  
+    if (timeLeft <= 10) {
+        
+    timer.classList.add("warning");
+    }
+       timerEl.textContent = timeLeft;
+    };
+  
+  
+ 
   scoreUp = parseInt(scoreUpElement.textContent, 10) || 0;
 
   if (correct) {
