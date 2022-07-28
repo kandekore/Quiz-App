@@ -138,3 +138,14 @@ h2, h3 {padding: 5px;}
   color: white;
   outline: none;
 }
+/*#question-container{
+ 
+}*/
+#question {
+  font-weight: 600;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
