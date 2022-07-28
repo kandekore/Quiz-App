@@ -1,6 +1,6 @@
 const startButton = document.getElementById("start-btn");
 const nextButton = document.getElementById("next-btn");
-const timer = document.getElementById("countdown")
+const timer = document.getElementById("countdown");
 const questionContainerElement = document.getElementById("question-container");
 const questionElement = document.getElementById("question");
 const answerButtonsElement = document.getElementById("answer-buttons");
@@ -12,8 +12,6 @@ var timeLeft = 60;
 let shuffledQuestions, currentQuestionIndex;
 let scoreUp = 0;
 
-
-
 const latestScore = localStorage.getItem("mostRecentScore");
 const scoreLog = document.getElementById("latestscore");
 
@@ -24,39 +22,33 @@ const userLog = document.getElementById("latestuser");
 
 userLog.innerText = latestUser;
 
-function hideScore (){
-  if (latestScore === 0 && latestUser === 0){
+function hideScore() {
+  if (latestScore === 0 && latestUser === 0) {
     userLog.classList.add("hide");
-
   }
 }
 
-console.log(latestScore);
 startButton.addEventListener("click", startGame);
 //nextButton.addEventListener("click", () => {
- // currentQuestionIndex++;
+// currentQuestionIndex++;
 //  setNextQuestion();
 //});
 function record(e) {
   recordButton.classList.remove("hide");
 }
 function countdown() {
- 
-
   // TODO: Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   var timeInterval = setInterval(function () {
     timeLeft--;
     timerEl.textContent = timeLeft;
-    if (timeLeft <= 0 ) {
+    if (timeLeft <= 0) {
       clearInterval(timeInterval);
       alert("Time is up!");
       resetState();
       record();
     }
- 
   }, 1000);
 }
-
 
 function startGame() {
   startButton.classList.add("hide");
@@ -97,10 +89,10 @@ function resetState() {
 function selectAnswer(e) {
   const selectedButton = e.target;
   const correct = selectedButton.dataset.correct;
-  console.log("Iam in select answer")
+  console.log("Iam in select answer");
   setStatusClass(document.body, correct);
   processResults(correct);
-  
+
   Array.from(answerButtonsElement.children).forEach((button) => {
     setStatusClass(button, button.dataset.correct);
   });
@@ -114,11 +106,8 @@ function selectAnswer(e) {
   }
 }
 
-
-
 function setStatusClass(element, correct) {
   clearStatusClass(element);
-  
 }
 
 function clearStatusClass(element) {
@@ -146,8 +135,7 @@ const questions = [
     ],
   },
   {
-    question:
-      "What is the largest country in the world?",
+    question: "What is the largest country in the world?",
     answers: [
       { text: "China", correct: false },
       { text: "Russia", correct: true },
@@ -183,8 +171,7 @@ const questions = [
     ],
   },
   {
-    question:
-      "Which dinosaur is thought to have the largest bite of them all?",
+    question: "Which dinosaur is thought to have the largest bite of them all?",
     answers: [
       { text: "Triceratops", correct: false },
       { text: "T-Rex", correct: true },
@@ -193,7 +180,8 @@ const questions = [
     ],
   },
   {
-    question: "What dinosaur themed book was turned into a blockbuster movie in 1993?",
+    question:
+      "What dinosaur themed book was turned into a blockbuster movie in 1993?",
     answers: [
       { text: "Monsters Inc", correct: false },
       { text: "Fantastic Beasts and Where to Find Them", correct: false },
@@ -220,8 +208,7 @@ const questions = [
     ],
   },
   {
-    question:
-      "In The Jungle Book, what kind of animal is Baloo?",
+    question: "In The Jungle Book, what kind of animal is Baloo?",
     answers: [
       { text: "Panther", correct: false },
       { text: "Bear", correct: true },
@@ -257,8 +244,7 @@ const questions = [
     ],
   },
   {
-    question:
-      "What do camels store in their humps?",
+    question: "What do camels store in their humps?",
     answers: [
       { text: "Water", correct: false },
       { text: "Fat", correct: true },
@@ -276,7 +262,8 @@ const questions = [
     ],
   },
   {
-    question: "Which fast food company used the advertising slogan I'm Lovin' it?",
+    question:
+      "Which fast food company used the advertising slogan I'm Lovin' it?",
     answers: [
       { text: "KFC", correct: false },
       { text: "Burger King", correct: false },
@@ -285,7 +272,8 @@ const questions = [
     ],
   },
   {
-    question: "What is the name of the lion in “The Lion, The Witch and the Wardrobe”?",
+    question:
+      "What is the name of the lion in “The Lion, The Witch and the Wardrobe”?",
     answers: [
       { text: "Simba", correct: false },
       { text: "King", correct: false },
@@ -294,8 +282,7 @@ const questions = [
     ],
   },
   {
-    question:
-      "What planet is known as the red planet?",
+    question: "What planet is known as the red planet?",
     answers: [
       { text: "Mercury", correct: false },
       { text: "Mars", correct: true },
@@ -331,8 +318,7 @@ const questions = [
     ],
   },
   {
-    question:
-      "A la Crecy is a French dish made of what?",
+    question: "A la Crecy is a French dish made of what?",
     answers: [
       { text: "Potatoes", correct: false },
       { text: "Carrots", correct: true },
@@ -359,7 +345,8 @@ const questions = [
     ],
   },
   {
-    question: "Which religion believes in One God and Last Prophet Muhammad (PBUH)?",
+    question:
+      "Which religion believes in One God and Last Prophet Muhammad (PBUH)?",
     answers: [
       { text: "Christianity", correct: false },
       { text: "Buddhism", correct: false },
@@ -389,43 +376,44 @@ const questions = [
 ];
 
 function processResults(correct) {
- 
   if (correct) {
     document.body.classList.add("correct");
- 
   } else {
     document.body.classList.add("wrong");
-    
-      timeLeft -= 10;
-      if (timeLeft <= 0) {
-        timeLeft = 0;
-        timer.classList.add("hide");
-      }
+
+    timeLeft -= 10;
+    if (timeLeft <= 0) {
+      timeLeft = 0;
+      timer.classList.add("hide");
+    }
     timerEl.textContent = timeLeft;
-    
-    
   }
 
-  function timer () {
-    
-  
-    if (timeLeft <= 20) {
-        
-    timer.classList.add("warning");
+  function timer() {
+    if (timerEl <= 20) {
+      //timer.classList.add("warning");
+      document.getElementById("countdown").style.color = "red";
     }
-       timerEl.textContent = timeLeft;
-    };
-  
-  
- 
+    // timerEl.textContent = timeLeft;
+  }
+
   scoreUp = parseInt(scoreUpElement.textContent, 10) || 0;
 
   if (correct) {
     scoreUp += 1;
   }
-  scoreUpElement.textContent = scoreUp ;
-  
-  localStorage.setItem("mostRecentScore", scoreUp );
+  scoreUpElement.textContent = scoreUp;
+
+  localStorage.setItem("mostRecentScore", scoreUp);
 }
 
-
+function checkStorage() {
+  if (localStorage.getItem("userName") === null) {
+    console.log(localStorage.getItem("userName"));
+    document.getElementById("scores").style.display = "none";
+  }
+  // if localstorage is null or empty
+  //target the scores div and make .style.display = none
+  //
+}
+checkStorage();
